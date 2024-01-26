@@ -74,7 +74,7 @@ UserController.post('/login', async (req,res)=>{
   });
     
   } catch (error) {
-    res.send({ message: "Internal Server Error" });
+    res.send({ message: "Something went wrong" });
     console.log(error)
   }
 })
