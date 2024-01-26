@@ -42,4 +42,41 @@ UserController.post('/signup', async (req,res) => {
   }
 });
 
+
+
+UserController.post('/login', async (req,res)=>{
+  const {email , password} = req.body
+
+  if(!(email,password)){
+    return res.send('Please fill all the details')
+  }
+  try {
+     const user = await UserModel.findOne({email})
+     if(!user){
+      res.send('Worng Credentials')
+     }
+     
+     bcrypt.compare(password, user.password, function(err, result) {
+        if(result){
+          const token = jwt.sign({ role: user.role, userId: user._id },process.env.SECRET_KEY);
+          return res.send({
+          msg: "login succcessful",
+          userData: {
+            token: token,
+            name: user.name,
+            role: user.role,
+          },
+        });
+
+      } else {
+        return res.send({msg: "Wrong credentials!"});
+      }
+  });
+    
+  } catch (error) {
+    res.send({ message: "Internal Server Error" });
+    console.log(error)
+  }
+})
+
 module.exports = {UserController}
