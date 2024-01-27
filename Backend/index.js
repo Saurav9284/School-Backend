@@ -3,9 +3,11 @@ require('dotenv').config()
 const {connection} = require('./Configs/db')
 const {UserController} = require('./Controllers/UserController')
 const {TeacherController} = require('./Controllers/TeacherController')
+const cors = require('cors')
 const PORT = process.env.PORT
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 
 app.get('/',(req,res)=>{
