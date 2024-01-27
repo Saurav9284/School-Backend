@@ -72,10 +72,10 @@ TeacherController.post('/',authorization(["CREATER"]),async (req,res)=>{
             console.log(newTeacher)
         }
         else{
-            res.send('Please fill all the details!')
+            res.send({ message:'Please fill all the details!'})
         }
     } catch (error) {
-        res.send('Something went wrong')
+        res.send({ message:'Something went wrong'})
         console.log(error)
     }
 });
@@ -87,15 +87,15 @@ TeacherController.patch('/edit/:id',authorization(["CREATER"]),async (req,res)=>
 
     const data = await TeacherModel.findOneAndUpdate({ _id: id, createrId },{ ...req.body });
       if(data){
-        res.send('Updated Success')
+        res.send({ message:'Data Updated Successfully'})
         console.log(data)
       }
       else{
-        res.send("not found");
+        res.send({ message:"Teachers data not found"});
       }
     
    } catch (error) {
-     res.send('Something went wrong')
+     res.send({ message:'Something went wrong'})
      console.log(error)
    }
 });
@@ -109,12 +109,12 @@ TeacherController.delete('/delete/:id',authorization(["CREATER"]),async (req,res
         const data = await TeacherModel.findOneAndDelete({ _id: id, createrId });
 
         if (data) {
-            res.send("deleted successfully");
+            res.send({ message:'Data Deleted Successfully'})
           } else {
-            res.send("not found");
+            res.send({ message:"Teachers data not found"});
           }
     } catch (error) {
-        res.send('Something went wrong')
+        res.send({ message:'Something went wrong'})
         console.log(error)
     }
 });

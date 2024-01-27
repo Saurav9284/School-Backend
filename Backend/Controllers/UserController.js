@@ -11,7 +11,7 @@ UserController.post('/signup', async (req,res) => {
   const {name , email , role, password } = req.body
  
   if(!(name,email,password,role)){
-    return res.send({msg:'Please fill all the details'})
+    return res.send({message:'Please fill all the details'})
   }
   try {
     const EmailinUse = await UserModel.findOne({ email });
@@ -30,14 +30,14 @@ UserController.post('/signup', async (req,res) => {
           password: hash
         })
         console.log(user)
-        res.send('User Created')
+        res.send({ message:'User Created'})
       } catch (error) {
-        res.send('Something went Wrong')
+        res.send({ message:'Something went Wrong'})
         console.log(error)
       }
   });
   } catch (error) {
-     res.send('Something went worng')
+     res.send({ message:'Something went worng'})
      console.log(error)
   }
 });
@@ -48,19 +48,19 @@ UserController.post('/login', async (req,res)=>{
   const {email , password} = req.body
 
   if(!(email,password)){
-    return res.send('Please fill all the details')
+    return res.send({ message:'Please fill all the details'})
   }
   try {
      const user = await UserModel.findOne({email})
      if(!user){
-      res.send('Worng Credentials')
+      res.send({ message:'Worng Credentials'})
      }
      
      bcrypt.compare(password, user.password, function(err, result) {
         if(result){
           const token = jwt.sign({ role: user.role, userId: user._id },process.env.SECRET_KEY);
           return res.send({
-          msg: "login succcessful",
+          message: "login succcessful",
           userData: {
             token: token,
             name: user.name,
@@ -69,7 +69,7 @@ UserController.post('/login', async (req,res)=>{
         });
 
       } else {
-        return res.send({msg: "Wrong credentials!"});
+        return res.send({message: "Wrong credentials!"});
       }
   });
     

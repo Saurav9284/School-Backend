@@ -11,7 +11,7 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/',(req,res)=>{
-   res.send('API running')
+   res.send({ messge:'Hey Saurav! sever is running'})
 })
 
 app.use('/user',UserController)
