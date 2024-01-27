@@ -5,10 +5,7 @@ const {authorization} = require('../Middlewares/authorization')
 const TeacherController = express.Router()
 
 
-TeacherController.get(
-    "/",
-    authorization(["VIEW_ALL", "VIEWER", "CREATER"]),
-    async (req, res) => {
+TeacherController.get("/",authorization(["VIEW_ALL", "VIEWER", "CREATER"]),async (req, res) => {
       try {
         const page = parseInt(req.query.page) || 1;
         const pageSize = parseInt(req.query.pageSize) || 10;
@@ -77,6 +74,45 @@ TeacherController.post('/',authorization(["CREATER"]),async (req,res)=>{
         else{
             res.send('Please fill all the details!')
         }
+    } catch (error) {
+        res.send('Something went wrong')
+        console.log(error)
+    }
+});
+
+TeacherController.patch('/edit/:id',authorization(["CREATER"]),async (req,res)=>{
+   try {
+    const id = req.params.id;
+    const createrId = req.userId;
+
+    const data = await TeacherModel.findOneAndUpdate({ _id: id, createrId },{ ...req.body });
+      if(data){
+        res.send('Updated Success')
+        console.log(data)
+      }
+      else{
+        res.send("not found");
+      }
+    
+   } catch (error) {
+     res.send('Something went wrong')
+     console.log(error)
+   }
+});
+
+
+TeacherController.delete('/delete/:id',authorization(["CREATER"]),async (req,res)=>{
+    try {
+        const id = req.params.id;
+        const createrId = req.userId;
+
+        const data = await TeacherModel.findOneAndDelete({ _id: id, createrId });
+
+        if (data) {
+            res.send("deleted successfully");
+          } else {
+            res.send("not found");
+          }
     } catch (error) {
         res.send('Something went wrong')
         console.log(error)
