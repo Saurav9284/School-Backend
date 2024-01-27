@@ -1,7 +1,7 @@
 
 ## API Endpoints :-
 
-1) Server check ==> /
+1) Server check ==> app/
 
 ### Authentication :-
 
