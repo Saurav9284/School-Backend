@@ -2,6 +2,7 @@ const express = require('express')
 require('dotenv').config()
 const {connection} = require('./Configs/db')
 const {UserController} = require('./Controllers/UserController')
+const {authorization} = require('./Middlewares/authorization')
 const PORT = process.env.PORT
 
 const app = express()
@@ -11,7 +12,11 @@ app.get('/',(req,res)=>{
     res.send('API running')
 })
 
-app.use('/api',UserController)
+app.use('/user',UserController)
+
+app.use(authorization)
+
+
 
 
 app.listen(PORT, async ()=> {
