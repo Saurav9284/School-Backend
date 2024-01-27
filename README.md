@@ -1,6 +1,8 @@
 
 ## API Endpoints :-
 
+1) Server check ==> /
+
 ### Authentication :-
 
 1) Login ==> /user/login
