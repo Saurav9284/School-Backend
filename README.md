@@ -11,4 +11,4 @@
 1) GET ==> /teacher/
 2) POST ==> /teacher/
 3) PATCH ==> /teacher/edit/id
-4) DELETE ==> /teacher/edit/id
+4) DELETE ==> /teacher/delete/id
