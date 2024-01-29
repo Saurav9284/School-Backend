@@ -32,9 +32,9 @@ TeacherController.get("/", authorization(["VIEW_ALL", "VIEWER", "CREATER"]), asy
     }
 
     // Search for author (assuming 'createrId' is the field representing the creator's ID)
-    if (roleQuery === "CREATER" || roleQuery === "VIEW") {
+    
       query.createrId = req.userId;
-    }
+    
 
     const totalItems = await TeacherModel.countDocuments(query);
     const totalPages = Math.ceil(totalItems / pageSize);
