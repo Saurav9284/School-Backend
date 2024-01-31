@@ -8,6 +8,7 @@ const teacherSchema = mongoose.Schema({
         enum: ['Math', 'English', 'History', 'Geography'],
         required: true
     },
+    
     createrId: { type: mongoose.Types.ObjectId, required: true },
 });
 
